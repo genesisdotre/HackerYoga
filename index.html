@@ -25,16 +25,12 @@
         z-index: -1;
       }
 
-      .left, .right {
-        width: 50%;
-        float: left;
-      }
       h1, h2, h3 {
         margin: 0 0 7px 0;
       }
-      h1 { font-size: 1.3em; }
-      h2 { font-size: 1.3em; }
-      h3 { font-size: 1.3em; }
+      h1 { font-size: 1.5em; font-weight: bold}
+      h2 { font-size: 1.2em; }
+      h3 { font-size: 1.2em; }
 
       a.insta {
         width: 33.3333333%;
@@ -51,13 +47,41 @@
         width: 100%;
       }
 
+
+      @media (min-width: 600px) {
+        .left, .right {
+          width: 50%;
+          float: left;
+        }
+      }
+
+      /* http://stackoverflow.com/a/17465040/775359 */
+      .auto-resizable-iframe {
+        max-width: 420px;
+        margin: 0px auto;
+      }
+
+      .auto-resizable-iframe > div {
+        position: relative;
+        padding-bottom: 75%;
+        height: 0px;
+      }
+
+      .auto-resizable-iframe iframe {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+      }
+
     </style>
   </head>
   <body>
     <article>
 
     <div class="left">
-      <h1 style="margin-top:0">hackeryoga.com</h1>
+      <h1 style="margin-top:0">hacker yoga</h1>
       <h2>London, UK</h2>
       <h3>Ashtanga • Rocket • Jivamukti</h3>
     </div>
@@ -69,22 +93,40 @@
 
     <div class="cf"></div>
 
+<div class="auto-resizable-iframe">
+  <div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/3tWw76gfUpo" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>
+
+    <div class="cf" style="margin-top:10px"></div>
+
     <a class="insta" title="view image on Instagram (@stefek99)" href="https://www.instagram.com/p/BE31cGIFUW7/"><img class="insta" src="small/swing.jpg"></a><a class="insta" title="view image on Instagram (@stefek99)" href="https://www.instagram.com/p/BCffzf_lUZr/"><img class="insta" src="small/book.jpg"></a><a class="insta" title="view image on Instagram (@stefek99)" href="https://www.instagram.com/p/-blR6JlUR-/"><img class="insta" src="small/marblearch.jpg"></a><a class="insta" title="view image on Instagram (@stefek99)" href="https://www.instagram.com/p/9jEK0sFUeo/"><img class="insta" src="small/hydepark.jpg"></a><a class="insta" title="view image on Instagram (@stefek99)" href="https://www.instagram.com/p/8bgj0WFUXw/"><img class="insta" src="small/utpluthih.jpg"></a><a class="insta" title="view image on Instagram (@stefek99)" href="https://www.instagram.com/p/6NfcMZlUSF/"><img class="insta" src="small/londonreal.jpg"></a><a class="insta" title="view image on Instagram (@stefek99)" href="https://www.instagram.com/p/6IOilyFUYa/"><img class="insta" src="small/onehand.jpg"></a><a class="insta" title="view image on Instagram (@stefek99)" href="https://www.instagram.com/p/50BmAPlUdK/"><img class="insta" src="small/cambourne.jpg"></a><a class="insta" title="view image on Instagram (@stefek99)" href="https://www.instagram.com/p/49dAsUFUZP/"><img class="insta" src="small/greenwich.jpg"></a>
 
     </article>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/trianglify/0.4.0/trianglify.min.js"></script>
     <script>
-    var pattern = Trianglify({
-        cell_size: 80, 
-        seed: '6mbam',
-        x_colors: 'Spectral',
-        width: window.innerWidth,
-        height: window.innerHeight
-    });
-    // http://stackoverflow.com/questions/2007357/how-to-set-dom-element-as-the-first-child
 
-    document.body.insertBefore(pattern.canvas(), document.body.firstChild)
+    var addPattern = function() {
+      var pattern = Trianglify({
+          cell_size: 80, 
+          seed: '6mbam',
+          x_colors: 'Spectral',
+          width: window.innerWidth,
+          height: window.innerHeight
+      });
+      // http://stackoverflow.com/questions/2007357/how-to-set-dom-element-as-the-first-child
+      document.body.insertBefore(pattern.canvas(), document.body.firstChild)
+    }
+
+    window.onresize = function(event) { // otherwise when resizing there are white gaps
+      document.body.firstChild.remove();
+      addPattern();
+    };
+
+    addPattern();
+
   </script>
 
 
